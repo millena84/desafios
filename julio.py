@@ -1,5 +1,3 @@
-
-
 import requests
 import json
 
@@ -21,8 +19,9 @@ listaAlfaCifr = [" ",",",".",";",":","!","?","a","b","c","d","e","f","g","h","i"
 frase = dadosRecebidos["cifrado"]
 frase = frase.lower()
 fraseTraduzida = ""
-print(dadosRecebidos)
-print(frase)
+
+print('#### Json: ', dadosRecebidos)
+print('#### frase para traduzir: ', frase)
 
 tamanho = len(frase)
 
@@ -34,21 +33,25 @@ for i in range(0, len(frase)):
         if frase[i] == listaAlfaCifr[j]:
             fraseTraduzida = fraseTraduzida + listaAlfaOrig[j]
 
-print(tamanho)
-print(fraseTraduzida)
+print('#### tamanho da frase: ', tamanho)
+print('#### frase traduzida: ', fraseTraduzida)
 
 #inclusao do texto decifrado no json para saida
 dadosRecebidos["decifrado"] = fraseTraduzida
 
-print(dadosRecebidos)
+print('#### json antes da conversão: ', dadosRecebidos)
+
+# serializar o json para postar:
+jsonNovo = json.dumps(dadosRecebidos, indent=4)
+
+print('#### json depois da conversão: ', jsonNovo)
+
+
+# postar a resposta
+urlPost = 'https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=89239c926b23ba1e2545d15574e745b3a1f9539a'
+
+post = requests.post(urlPost, jsonNovo)
 
 
 
-
-
-
-
-
-
-
-
+ 
