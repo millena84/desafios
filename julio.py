@@ -1,3 +1,5 @@
+
+
 import requests
 import json
 
@@ -43,15 +45,22 @@ print('#### json antes da conversão: ', dadosRecebidos)
 
 # serializar o json para postar:
 jsonNovo = json.dumps(dadosRecebidos, indent=4)
+#with open('answer.json', 'w') as f:
+#    jsonNovo = json.dump(dadosRecebidos, f)
 
 print('#### json depois da conversão: ', jsonNovo)
 
+arquivo = open('answer.json', 'w')
+arquivo.write(jsonNovo)
 
 # postar a resposta
 urlPost = 'https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=89239c926b23ba1e2545d15574e745b3a1f9539a'
 
-post = requests.post(urlPost, jsonNovo)
+#post = requests.post(urlPost, jsonNovo)
 
+filepath = '/home/ubuntu/answer.json'
+
+post = requests.post(urlPost, files={'answer': open(filepath, 'rb')})
 
 
  
