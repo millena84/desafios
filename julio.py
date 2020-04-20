@@ -1,7 +1,8 @@
 
-
 import requests
 import json
+import hashlib
+
 
 # requisita o json na url para fazer a conversao
 urlToken="https://api.codenation.dev/v1/challenge/dev-ps/generate-data?token=89239c926b23ba1e2545d15574e745b3a1f9539a"
@@ -38,6 +39,11 @@ for i in range(0, len(frase)):
 print('#### tamanho da frase: ', tamanho)
 print('#### frase traduzida: ', fraseTraduzida)
 
+# fazer o resumo criptografico sha1:
+#dadosRecebidos ["resumo_criptografico"] = hashlib.sha1(frase.encode())
+cripSha1 = hashlib.sha1(frase.encode())
+dadosRecebidos["resumo_criptografico"] = cripSha1.hexdigest()
+
 #inclusao do texto decifrado no json para saida
 dadosRecebidos["decifrado"] = fraseTraduzida
 
@@ -61,6 +67,7 @@ urlPost = 'https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=
 filepath = '/home/ubuntu/answer.json'
 
 post = requests.post(urlPost, files={'answer': open(filepath, 'rb')})
+
 
 
  
